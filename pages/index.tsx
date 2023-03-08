@@ -1,5 +1,9 @@
+import TimerMenu from "@/components/header/timer-menu";
+
 export default function Home() {
   return (
-    <h1 className="text-primary">red</h1>      
-  )
+    <div className="text-white w-[90%] mx-auto flex flex-col">
+      <TimerMenu />
+    </div>
+  );
 }
