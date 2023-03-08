@@ -12,8 +12,8 @@ module.exports = {
         'secondary': 'rgb(56, 133, 138)',
         'tertiary': 'rgb(57, 112, 151)',
         'white': '#fff',
-        'transperant-white': 'rgba(0, 0, 0, 0.1)',
-        'transperant-black': 'rgba(255, 255, 255, 0.1)'
+        'transparent-white': 'rgba(0, 0, 0, 0.1)',
+        'transparent-black': 'rgba(255, 255, 255, 0.1)'
       }
     },
   },
