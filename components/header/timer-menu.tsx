@@ -2,7 +2,7 @@ import { BsFillSkipEndFill } from "react-icons/bs";
 import { Dispatch, SetStateAction } from "react";
 
 import { focusEnum } from "@/pages";
-import PauseButton from "../shared/pause-button";
+import TimerStart from "../shared/timer-start";
 
 interface Props {
   setFocus: Dispatch<SetStateAction<focusEnum>>;
@@ -50,7 +50,7 @@ export default function TimerMenu({ setFocus, focus }: Props) {
         <div className="py-6 font-bold text-center text-8xl">25:00</div>
       </div>
       <div className="relative flex justify-center">
-        <PauseButton />
+        <TimerStart focus={focus} />
         <BsFillSkipEndFill
           size={40}
           className="absolute duration-200 transform -translate-y-1/2 cursor-pointer top-1/2 sm:right-20 right-14 hover:opacity-20"
