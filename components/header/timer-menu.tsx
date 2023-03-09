@@ -18,6 +18,14 @@ const TIME_VALUES_FOR_FOCUS = {
 export default function TimerMenu({ setFocus, focus }: Props) {
   const [isTimerStarted, setIsTimerStarted] = useState(false);
   const [curTime, setCurTime] = useState("25:00");
+  const [point, setPoint] = useState(() => {
+    if (typeof localStorage !== "undefined") {
+      const savedPoint = localStorage.getItem("point");
+      const parsedPoint = savedPoint ? parseInt(savedPoint) : 0;
+      return parsedPoint;
+    }
+    return 0;
+  });
 
   useEffect(() => {
     setCurTime(TIME_VALUES_FOR_FOCUS[focus]);
@@ -25,7 +33,6 @@ export default function TimerMenu({ setFocus, focus }: Props) {
 
   useEffect(() => {
     let timer: ReturnType<typeof setInterval>;
-    let point = 0
     if (isTimerStarted) {
       timer = setInterval(() => {
         const minutes = parseInt(curTime.split(":")[0]);
@@ -35,7 +42,11 @@ export default function TimerMenu({ setFocus, focus }: Props) {
           clearInterval(timer);
           setIsTimerStarted(false);
           setCurTime(TIME_VALUES_FOR_FOCUS[focus]);
+          if (focus === focusEnum.pomodoro) {
+            setPoint((prevPoint) => prevPoint + 1);
 
+            localStorage.setItem("point", (point + 1).toString());
+          }
         } else {
           if (minutes < 10) {
             if (seconds === 0) {
@@ -57,7 +68,6 @@ export default function TimerMenu({ setFocus, focus }: Props) {
         }
       }, 1000);
     }
-
 
     return () => clearInterval(timer);
   }, [curTime, isTimerStarted]);
