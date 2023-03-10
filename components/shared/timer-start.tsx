@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
+import {useSound} from 'use-sound'
 
 import { focusEnum } from "@/pages";
 
@@ -13,6 +14,7 @@ export default function PauseButton({
   setIsTimerStarted,
   isTimerStarted,
 }: Props) {
+  const [play, {stop}] = useSound('./sounds/mouse-click.wav')
 
   return (
     <button
@@ -21,7 +23,10 @@ export default function PauseButton({
       } ${focus === focusEnum.short ? "text-secondary" : ""} ${
         focus === focusEnum.long ? "text-tertiary" : ""
       }`}
-      onClick={() => setIsTimerStarted(prev => !prev)}
+      onClick={() => {
+        setIsTimerStarted(prev => !prev)
+        play()
+      }}
     >
       {isTimerStarted ? 'PAUSE' : 'START'}
     </button>
