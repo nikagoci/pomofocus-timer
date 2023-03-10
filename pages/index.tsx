@@ -13,13 +13,15 @@ export enum focusEnum {
 
 export default function Home() {
   const [focus, setFocus] = useState<focusEnum>(focusEnum.pomodoro);
+  const [point, setPoint] = useState(0);
 
+  console.log(point)
   return (
     <Layout focus={focus}>
       <div className="text-white w-[90%] mx-auto flex flex-col">
         <div>
-          <TimerMenu setFocus={setFocus} focus={focus} />
-          <FocusTime />
+          <TimerMenu point={point} setPoint={setPoint} setFocus={setFocus} focus={focus} />
+          <FocusTime point={point} />
           <Tasks />
         </div>
       </div>

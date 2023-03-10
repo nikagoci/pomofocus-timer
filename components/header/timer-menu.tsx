@@ -7,6 +7,8 @@ import TimerStart from "../shared/timer-start";
 interface Props {
   setFocus: Dispatch<SetStateAction<focusEnum>>;
   focus: focusEnum;
+  setPoint: Dispatch<SetStateAction<number>>;
+  point: number;
 }
 
 const TIME_VALUES_FOR_FOCUS = {
@@ -15,17 +17,9 @@ const TIME_VALUES_FOR_FOCUS = {
   long: "15:00",
 };
 
-export default function TimerMenu({ setFocus, focus }: Props) {
+export default function TimerMenu({ setFocus, focus, setPoint, point }: Props) {
   const [isTimerStarted, setIsTimerStarted] = useState(false);
   const [curTime, setCurTime] = useState("25:00");
-  const [point, setPoint] = useState(() => {
-    if (typeof localStorage !== "undefined") {
-      const savedPoint = localStorage.getItem("point");
-      const parsedPoint = savedPoint ? parseInt(savedPoint) : 0;
-      return parsedPoint;
-    }
-    return 0;
-  });
 
   useEffect(() => {
     setCurTime(TIME_VALUES_FOR_FOCUS[focus]);
@@ -45,7 +39,13 @@ export default function TimerMenu({ setFocus, focus }: Props) {
           if (focus === focusEnum.pomodoro) {
             setPoint((prevPoint) => prevPoint + 1);
 
-            localStorage.setItem("point", (point + 1).toString());
+            if (point % 3 === 0 && point !== 0) {
+              setFocus(focusEnum.long);
+            } else {
+              setFocus(focusEnum.short);
+            }
+          } else {
+            setFocus(focusEnum.pomodoro);
           }
         } else {
           if (minutes < 10) {
