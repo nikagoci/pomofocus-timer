@@ -19,7 +19,7 @@ const TIME_VALUES_FOR_FOCUS = {
 
 export default function TimerMenu({ setFocus, focus, setPoint, point }: Props) {
   const [isTimerStarted, setIsTimerStarted] = useState(false);
-  const [curTime, setCurTime] = useState("25:00");
+  const [curTime, setCurTime] = useState(TIME_VALUES_FOR_FOCUS.pomodoro);
 
   useEffect(() => {
     setCurTime(TIME_VALUES_FOR_FOCUS[focus]);
@@ -36,17 +36,6 @@ export default function TimerMenu({ setFocus, focus, setPoint, point }: Props) {
           clearInterval(timer);
           setIsTimerStarted(false);
           setCurTime(TIME_VALUES_FOR_FOCUS[focus]);
-          if (focus === focusEnum.pomodoro) {
-            setPoint((prevPoint) => prevPoint + 1);
-
-            if (point % 3 === 0 && point !== 0) {
-              setFocus(focusEnum.long);
-            } else {
-              setFocus(focusEnum.short);
-            }
-          } else {
-            setFocus(focusEnum.pomodoro);
-          }
         } else {
           if (minutes < 10) {
             if (seconds === 0) {
@@ -78,11 +67,24 @@ export default function TimerMenu({ setFocus, focus, setPoint, point }: Props) {
   }, [focus]);
 
   const compareFocuses = (curFocus: focusEnum): string => {
-    if (focus === curFocus) {
-      return "bg-transparent-white";
-    }
+    return focus === curFocus ? "bg-transparent-white" : "";
+  };
 
-    return "";
+  const handleSkipTimer = () => {
+    if(focus === focusEnum.pomodoro){
+      setPoint((prevPoint) => prevPoint + 1);
+
+
+      // point % 3 should be dynamic
+      if (point % 3 === 0 && point !== 0) {
+        setFocus(focusEnum.long);
+      } else {
+        setFocus(focusEnum.short);
+      }
+    } else {
+      setFocus(focusEnum.pomodoro)
+    }
+    
   };
 
   return (
@@ -126,7 +128,7 @@ export default function TimerMenu({ setFocus, focus, setPoint, point }: Props) {
           <BsFillSkipEndFill
             size={40}
             className="absolute duration-200 transform -translate-y-1/2 cursor-pointer top-1/2 sm:right-20 right-14 hover:opacity-20"
-            onClick={() => setCurTime("00:00")}
+            onClick={handleSkipTimer}
           />
         )}
       </div>
