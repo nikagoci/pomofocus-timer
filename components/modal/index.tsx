@@ -38,6 +38,8 @@ export default function Modal({ open, setOpen }: Props) {
     addAutoBreaks(inputValues.autoBreaks)
     addAutoPomodoros(inputValues.autoPomodoros)
     addLongBreakInterval(inputValues.longBreakInterval)
+
+    setOpen(false)
   };
 
   return (

@@ -1,8 +1,9 @@
+import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import { BsFillSkipEndFill } from "react-icons/bs";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 import { focusEnum } from "@/pages";
 import TimerStart from "../shared/timer-start";
+import { PomodoroContext } from "@/context/pomodoro-context";
 
 interface Props {
   setFocus: Dispatch<SetStateAction<focusEnum>>;
@@ -11,19 +12,28 @@ interface Props {
   point: number;
 }
 
-const TIME_VALUES_FOR_FOCUS = {
-  pomodoro: "25:00",
-  short: "5:00",
-  long: "15:00",
-};
+
+function formatNumberToTime(number: number) {
+  var hours = Math.floor(number);
+  var minutes = Math.floor((number - hours) * 60);
+  var formattedMinutes = String(minutes).padStart(2, '0');
+  return hours + ':' + formattedMinutes;
+}
 
 export default function TimerMenu({ setFocus, focus, setPoint, point }: Props) {
+  const ctx = useContext(PomodoroContext)
   const [isTimerStarted, setIsTimerStarted] = useState(false);
-  const [curTime, setCurTime] = useState(TIME_VALUES_FOR_FOCUS.pomodoro);
+  const [curTime, setCurTime] = useState(formatNumberToTime(ctx.pomodoro));
+
+  const TIME_VALUES_FOR_FOCUS = {
+    pomodoro: formatNumberToTime(ctx.pomodoro),
+    short: formatNumberToTime(ctx.short),
+    long: formatNumberToTime(ctx.long),
+  };
 
   useEffect(() => {
     setCurTime(TIME_VALUES_FOR_FOCUS[focus]);
-  }, [focus]);
+  }, [focus, ctx]);
 
   useEffect(() => {
     let timer: ReturnType<typeof setInterval>;
@@ -76,7 +86,7 @@ export default function TimerMenu({ setFocus, focus, setPoint, point }: Props) {
 
 
       // point % 3 should be dynamic
-      if (point % 3 === 0 && point !== 0) {
+      if (point % ctx.longBreakInterval === 0 && point !== 0) {
         setFocus(focusEnum.long);
       } else {
         setFocus(focusEnum.short);
