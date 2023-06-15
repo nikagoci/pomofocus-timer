@@ -1,24 +1,35 @@
-import { useState } from 'react'
-import { Switch } from '@headlessui/react'
+import { useState } from "react";
+import { Control, Controller, UseFormRegister } from "react-hook-form";
+import { InputValues } from ".";
 
-export default function Toggle() {
-  const [enabled, setEnabled] = useState(false)
+interface Props {
+  register: UseFormRegister<InputValues>;
+  id: "autoBreaks" | "autoPomodoros";
+  control: Control<InputValues>;
+}
+
+export default function Toggle({ register, id, control }: Props) {
+  const [enabled, setEnabled] = useState(false);
+
+  const changeHandler = (onChange: (...event: any[]) => void, value: boolean) => {
+    setEnabled((prev) => !prev);
+    onChange(!value);
+  };
 
   return (
-    <div className="">
-      <Switch
-        checked={enabled}
-        onChange={setEnabled}
-        className={`${enabled ? 'bg-teal-900' : 'bg-teal-700'}
-          relative inline-flex h-[28px] w-[54px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
-      >
-        <span className="sr-only">Use setting</span>
-        <span
-          aria-hidden="true"
-          className={`${enabled ? 'translate-x-7' : 'translate-x-0'}
-            pointer-events-none inline-block h-[24px] w-[24px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
-        />
-      </Switch>
-    </div>
-  )
+    <Controller
+      name={id}
+      defaultValue={false}
+      control={control}
+      render={({ field: { onChange, value } }) => (
+        <div className="relative inline-flex items-center cursor-pointer">
+          <input type="checkbox" checked={enabled} className="sr-only peer" readOnly />
+          <div
+            onClick={() => changeHandler(onChange, value)}
+            className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"
+          ></div>
+        </div>
+      )}
+    />
+  );
 }

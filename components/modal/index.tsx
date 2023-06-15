@@ -1,14 +1,45 @@
-import { Dispatch, Fragment, SetStateAction } from "react";
+import { Dispatch, Fragment, SetStateAction, useContext } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import { useForm } from "react-hook-form";
+import { AiOutlineClose } from "react-icons/ai";
+
 import TimerSetting from "./timer-setting";
-import {AiOutlineClose} from 'react-icons/ai'
+import { PomodoroContext } from "@/context/pomodoro-context";
 
 interface Props {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
+export interface InputValues {
+  pomodoro: number;
+  shortBreak: number;
+  longBreak: number;
+  longBreakInterval: number;
+  autoBreaks: boolean;
+  autoPomodoros: boolean;
+}
+
 export default function Modal({ open, setOpen }: Props) {
+  const { handleSubmit, register, control } = useForm<InputValues>();
+  const {
+    addPomodoro,
+    addShort,
+    addLong,
+    addAutoBreaks,
+    addAutoPomodoros,
+    addLongBreakInterval,
+  } = useContext(PomodoroContext);
+
+  const onSubmit = (inputValues: InputValues) => {
+    addPomodoro(inputValues.pomodoro)
+    addShort(inputValues.shortBreak)
+    addLong(inputValues.longBreak)
+    addAutoBreaks(inputValues.autoBreaks)
+    addAutoPomodoros(inputValues.autoPomodoros)
+    addLongBreakInterval(inputValues.longBreakInterval)
+  };
+
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog
@@ -47,22 +78,30 @@ export default function Modal({ open, setOpen }: Props) {
           >
             <div className="inline-block overflow-hidden text-left align-bottom transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:align-middle sm:max-w-sm sm:w-full ">
               <div className="absolute top-7 right-7 ">
-                <AiOutlineClose size={20} className="cursor-pointer opacity-30 hover:opacity-100" onClick={() => setOpen(false)} />
-              </div>
-              <div className="px-4 pt-5 pb-4 sm:p-6">
-                <div className="pb-4 border-b">
-                  <h4 className="font-bold tracking-wide text-dark">Setting</h4>
-                </div>
-                <TimerSetting />
-              </div>
-              <div className="bg-[rgb(239,239,239)] py-4 flex items-center justify-end pr-4">
-                <button
-                  className="bg-[rgb(34,34,34)] text-white py-2 px-6 rounded opacity-90 hover:opacity-100 transition duration-300"
+                <AiOutlineClose
+                  size={20}
+                  className="cursor-pointer opacity-30 hover:opacity-100"
                   onClick={() => setOpen(false)}
-                >
-                  OK
-                </button>
+                />
               </div>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <div className="px-4 pt-5 pb-4 sm:p-6">
+                  <div className="pb-4 border-b">
+                    <h4 className="font-bold tracking-wide text-dark">
+                      Setting
+                    </h4>
+                  </div>
+                  <TimerSetting register={register} control={control} />
+                </div>
+                <div className="bg-[rgb(239,239,239)] py-4 flex items-center justify-end pr-4">
+                  <button
+                    className="bg-[rgb(34,34,34)] text-white py-2 px-6 rounded opacity-90 hover:opacity-100 transition duration-300"
+                    type="submit"
+                  >
+                    OK
+                  </button>
+                </div>
+              </form>
             </div>
           </Transition.Child>
         </div>
