@@ -13,7 +13,9 @@ module.exports = {
         'tertiary': 'rgb(57, 112, 151)',
         'white': '#fff',
         'transparent-white': 'rgba(0, 0, 0, 0.1)',
-        'transparent-black': 'rgba(255, 255, 255, 0.1)'
+        'transparent-black': 'rgba(255, 255, 255, 0.1)',
+        'dark': 'rgb(102, 102, 102)',
+        'light_dark': 'rgb(187, 187, 187)'
       }
     },
   },
