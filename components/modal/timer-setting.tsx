@@ -76,7 +76,7 @@ export default function TimerSetting({ register, control }: Props) {
         <Toggle register={register} control={control} id="autoPomodoros" />
       </div>
       <div className="flex items-center justify-between py-3">
-        <label className="font-bold text-black" htmlFor="long-break-interval">
+        <label className="font-bold text-black" htmlFor="longBreakInterval">
           Long Break Interval
         </label>
         <div className="w-20">

@@ -96,7 +96,7 @@ export default function Modal({ open, setOpen }: Props) {
                   onClick={() => setOpen(false)}
                 />
               </div>
-              <form onSubmit={handleSubmit(onSubmit)}>
+              <form onSubmit={handleSubmit(onSubmit)} name="setting-form">
                 <div className="px-4 pt-5 pb-4 sm:p-6">
                   <div className="pb-4 border-b">
                     <h4 className="font-bold tracking-wide text-dark">
