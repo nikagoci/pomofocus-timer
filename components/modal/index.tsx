@@ -2,9 +2,12 @@ import { Dispatch, Fragment, SetStateAction, useContext } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useForm } from "react-hook-form";
 import { AiOutlineClose } from "react-icons/ai";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import TimerSetting from "./timer-setting";
 import { PomodoroContext } from "@/context/pomodoro-context";
+import schema from "@/libs/setting-schema";
+import { isObjectEmpty } from "@/libs/usable-functions";
 
 interface Props {
   open: boolean;
@@ -20,8 +23,15 @@ export interface InputValues {
   autoPomodoros: boolean;
 }
 
+
+
 export default function Modal({ open, setOpen }: Props) {
-  const { handleSubmit, register, control } = useForm<InputValues>();
+  const {
+    handleSubmit,
+    register,
+    control,
+    formState: { errors },
+  } = useForm<InputValues>({ resolver: zodResolver(schema) });
   const {
     addPomodoro,
     addShort,
@@ -32,14 +42,14 @@ export default function Modal({ open, setOpen }: Props) {
   } = useContext(PomodoroContext);
 
   const onSubmit = (inputValues: InputValues) => {
-    addPomodoro(inputValues.pomodoro)
-    addShort(inputValues.shortBreak)
-    addLong(inputValues.longBreak)
-    addAutoBreaks(inputValues.autoBreaks)
-    addAutoPomodoros(inputValues.autoPomodoros)
-    addLongBreakInterval(inputValues.longBreakInterval)
+    addPomodoro(inputValues.pomodoro);
+    addShort(inputValues.shortBreak);
+    addLong(inputValues.longBreak);
+    addAutoBreaks(inputValues.autoBreaks);
+    addAutoPomodoros(inputValues.autoPomodoros);
+    addLongBreakInterval(inputValues.longBreakInterval);
 
-    setOpen(false)
+    setOpen(false);
   };
 
   return (
@@ -97,8 +107,11 @@ export default function Modal({ open, setOpen }: Props) {
                 </div>
                 <div className="bg-[rgb(239,239,239)] py-4 flex items-center justify-end pr-4">
                   <button
-                    className="bg-[rgb(34,34,34)] text-white py-2 px-6 rounded opacity-90 hover:opacity-100 transition duration-300"
+                    className={`bg-[rgb(34,34,34)] text-white py-2 px-6 rounded opacity-90 hover:opacity-100 transition duration-300 ${
+                      isObjectEmpty(errors) ? "" : "disabled:opacity-60"
+                    }`}
                     type="submit"
+                    disabled={!isObjectEmpty(errors)}
                   >
                     OK
                   </button>

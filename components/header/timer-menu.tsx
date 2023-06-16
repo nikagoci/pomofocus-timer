@@ -4,20 +4,13 @@ import { BsFillSkipEndFill } from "react-icons/bs";
 import { focusEnum } from "@/pages";
 import TimerStart from "../shared/timer-start";
 import { PomodoroContext } from "@/context/pomodoro-context";
+import { formatNumberToTime } from "@/libs/usable-functions";
 
 interface Props {
   setFocus: Dispatch<SetStateAction<focusEnum>>;
   focus: focusEnum;
   setPoint: Dispatch<SetStateAction<number>>;
   point: number;
-}
-
-
-function formatNumberToTime(number: number) {
-  var hours = Math.floor(number);
-  var minutes = Math.floor((number - hours) * 60);
-  var formattedMinutes = String(minutes).padStart(2, '0');
-  return hours + ':' + formattedMinutes;
 }
 
 export default function TimerMenu({ setFocus, focus, setPoint, point }: Props) {
@@ -84,8 +77,6 @@ export default function TimerMenu({ setFocus, focus, setPoint, point }: Props) {
     if(focus === focusEnum.pomodoro){
       setPoint((prevPoint) => prevPoint + 1);
 
-
-      // point % 3 should be dynamic
       if (point % ctx.longBreakInterval === 0 && point !== 0) {
         setFocus(focusEnum.long);
       } else {
