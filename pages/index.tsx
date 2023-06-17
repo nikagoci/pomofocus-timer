@@ -1,5 +1,5 @@
 import FocusTime from "@/components/header/focus_time";
-import Tasks from "@/components/header/tasks";
+import Tasks from "@/components/tasks";
 import TimerMenu from "@/components/header/timer-menu";
 import Layout from "@/components/layout/layout";
 
