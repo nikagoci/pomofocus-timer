@@ -9,12 +9,6 @@ import { IoIosRemoveCircleOutline } from "react-icons/io";
 import { BsTrash } from "react-icons/bs";
 
 export default function Dropdown() {
-  const [domLoaded, setDomLoaded] = useState(false);
-
-  useEffect(() => {
-    setDomLoaded(true);
-  }, []);
-
   return (
     <div className="z-10 text-right">
       <Menu as="div" className="relative inline-block text-left">

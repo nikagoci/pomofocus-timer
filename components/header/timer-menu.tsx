@@ -1,10 +1,17 @@
-import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { BsFillSkipEndFill } from "react-icons/bs";
 
 import { focusEnum } from "@/pages";
 import TimerStart from "../shared/timer-start";
 import { PomodoroContext } from "@/context/pomodoro-context";
 import { formatNumberToTime } from "@/libs/usable-functions";
+import ChangePomo from "./change-pomo";
 
 interface Props {
   setFocus: Dispatch<SetStateAction<focusEnum>>;
@@ -14,7 +21,7 @@ interface Props {
 }
 
 export default function TimerMenu({ setFocus, focus, setPoint, point }: Props) {
-  const ctx = useContext(PomodoroContext)
+  const ctx = useContext(PomodoroContext);
   const [isTimerStarted, setIsTimerStarted] = useState(false);
   const [curTime, setCurTime] = useState(formatNumberToTime(ctx.pomodoro));
 
@@ -69,12 +76,8 @@ export default function TimerMenu({ setFocus, focus, setPoint, point }: Props) {
     setIsTimerStarted(false);
   }, [focus]);
 
-  const compareFocuses = (curFocus: focusEnum): string => {
-    return focus === curFocus ? "bg-transparent-white" : "";
-  };
-
   const handleSkipTimer = () => {
-    if(focus === focusEnum.pomodoro){
+    if (focus === focusEnum.pomodoro) {
       setPoint((prevPoint) => prevPoint + 1);
 
       if (point % ctx.longBreakInterval === 0 && point !== 0) {
@@ -83,38 +86,31 @@ export default function TimerMenu({ setFocus, focus, setPoint, point }: Props) {
         setFocus(focusEnum.short);
       }
     } else {
-      setFocus(focusEnum.pomodoro)
+      setFocus(focusEnum.pomodoro);
     }
-    
   };
 
   return (
     <div className="flex flex-col bg-transparent-black p-7 rounded mt-8 space-y-4 max-w-[550px] mx-auto">
       <div className="flex items-center justify-center font-semibold cursor-pointer">
-        <div
-          className={`px-3 py-1 rounded-md transform duration-200 ${compareFocuses(
-            focusEnum.pomodoro
-          )} `}
-          onClick={() => setFocus(focusEnum.pomodoro)}
-        >
-          Pomodoro
-        </div>
-        <div
-          className={`px-3 py-1 rounded-md transform duration-200 ${compareFocuses(
-            focusEnum.short
-          )}`}
-          onClick={() => setFocus(focusEnum.short)}
-        >
-          Short Break
-        </div>
-        <div
-          className={`px-3 py-1 rounded-md transform duration-200 ${compareFocuses(
-            focusEnum.long
-          )}`}
-          onClick={() => setFocus(focusEnum.long)}
-        >
-          Long Break
-        </div>
+        <ChangePomo
+          title="Pomodoro"
+          focus={focus}
+          setFocus={setFocus}
+          pomoFocus={focusEnum.pomodoro}
+        />
+        <ChangePomo
+          title="Short Break"
+          focus={focus}
+          setFocus={setFocus}
+          pomoFocus={focusEnum.short}
+        />
+        <ChangePomo
+          title="Long Break"
+          focus={focus}
+          setFocus={setFocus}
+          pomoFocus={focusEnum.long}
+        />
       </div>
       <div>
         <div className="py-6 font-bold text-center text-8xl">{curTime}</div>
