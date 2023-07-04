@@ -1,5 +1,5 @@
 import { useReducer, createContext, ReactNode } from "react";
-import reducer from "./reducer";
+import reducer from "./pomodoro-reducer";
 
 const initialState: ValueIntreface = {
   pomodoro: 25,

@@ -30,6 +30,11 @@ const reducer = (state: any, action: any) => {
         ...state,
         longBreakInterval: action.payload,
       };
+
+    case "SET_INPUT_VALUE":
+      return {
+        ...state
+      }
   }
 };
 

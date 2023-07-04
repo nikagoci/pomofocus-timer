@@ -1,14 +1,16 @@
+import { Fragment, useContext } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import { Fragment, useEffect, useRef, useState } from "react";
 import { HiDotsVertical } from "react-icons/hi";
 import { BiSave } from "react-icons/bi";
-import MenuButton from "../shared/menu-button";
+import { BsTrash } from "react-icons/bs";
 import { AiOutlinePlus } from "react-icons/ai";
 import { IoIosRemoveCircleOutline } from "react-icons/io";
+import { TaskContext } from "@/context/task-context";
 
-import { BsTrash } from "react-icons/bs";
 
 export default function Dropdown() {
+  const { clearFinishedTasks, clearAllTasks} = useContext(TaskContext)
+
   return (
     <div className="z-10 text-right">
       <Menu as="div" className="relative inline-block text-left">
@@ -32,6 +34,7 @@ export default function Dropdown() {
                     className={`${
                       active ? "bg-[rgb(241,238,238)]" : ""
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-900`}
+                    onClick={clearFinishedTasks}
                   >
                     <IoIosRemoveCircleOutline className="mr-2" size={19} />
                     Clear Finished Tasks
@@ -70,6 +73,7 @@ export default function Dropdown() {
                     className={`${
                       active ? "bg-[rgb(241,238,238)] " : ""
                     } group flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-900`}
+                    onClick={clearAllTasks}
                   >
                     <BsTrash className="mr-2" size={19} />
                     Clear all tasks

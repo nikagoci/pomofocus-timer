@@ -15,7 +15,7 @@ export default function Layout({ children, focus }: Props) {
         focus === focusEnum.short ? "bg-secondary" : ""
       } ${
         focus === focusEnum.long ? "bg-tertiary" : ""
-      } tranform duration-500 h-screen w-full`}
+      } tranform duration-500 pb-16 min-h-screen w-full`}
     >
       <Navbar />
       <main>{children}</main>
