@@ -5,6 +5,7 @@ import Layout from "@/components/layout/layout";
 
 import { useState } from "react";
 import { TaskContextProvider } from "@/context/task-context";
+import Head from "next/head";
 
 export enum focusEnum {
   pomodoro = "pomodoro",
@@ -17,21 +18,30 @@ export default function Home() {
   const [point, setPoint] = useState(0);
 
   return (
-    <Layout focus={focus}>
-      <div className="text-white w-[90%] mx-auto flex flex-col">
-        <div>
-          <TimerMenu
-            point={point}
-            setPoint={setPoint}
-            setFocus={setFocus}
-            focus={focus}
-          />
-          <FocusTime point={point} />
-          <TaskContextProvider>
-            <Tasks />
-          </TaskContextProvider>
+    <>
+      <Head>
+        {focus === focusEnum.pomodoro && <title>Time to focus!</title>}
+        {(focus === focusEnum.short || focus === focusEnum.long) && (
+          <title>Time for break!</title>
+        )}
+        <link rel="shortcut icon" type="image/x-icon" href="/images/pomo-focus.png" />
+      </Head>
+      <Layout focus={focus}>
+        <div className="text-white w-[90%] mx-auto flex flex-col">
+          <div>
+            <TimerMenu
+              point={point}
+              setPoint={setPoint}
+              setFocus={setFocus}
+              focus={focus}
+            />
+            <FocusTime point={point} />
+            <TaskContextProvider>
+              <Tasks />
+            </TaskContextProvider>
+          </div>
         </div>
-      </div>
-    </Layout>
+      </Layout>
+    </>
   );
 }
