@@ -25,6 +25,8 @@ export default function Home() {
           <title>Time for break!</title>
         )}
         <link rel="shortcut icon" type="image/x-icon" href="/images/pomo-focus.png" />
+        <meta name="description" content="track time and focus more!" />
+        <meta name="keywords" content="focus, pomodoro, pomo, timer" />
       </Head>
       <Layout focus={focus}>
         <div className="text-white w-[90%] mx-auto flex flex-col">
