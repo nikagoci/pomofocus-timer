@@ -1,9 +1,7 @@
 import { Fragment, useContext } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { HiDotsVertical } from "react-icons/hi";
-import { BiSave } from "react-icons/bi";
 import { BsTrash } from "react-icons/bs";
-import { AiOutlinePlus } from "react-icons/ai";
 import { IoIosRemoveCircleOutline } from "react-icons/io";
 import { TaskContext } from "@/context/task-context";
 
@@ -38,30 +36,6 @@ export default function Dropdown() {
                   >
                     <IoIosRemoveCircleOutline className="mr-2" size={19} />
                     Clear Finished Tasks
-                  </button>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    className={`${
-                      active ? "bg-[rgb(241,238,238)]" : ""
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-900`}
-                  >
-                    <BiSave className="mr-2" size={19} />
-                    Save as template
-                  </button>
-                )}
-              </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    className={`${
-                      active ? "bg-[rgb(241,238,238)]" : ""
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm text-gray-900`}
-                  >
-                    <AiOutlinePlus className="mr-2" size={19} />
-                    Add from templates
                   </button>
                 )}
               </Menu.Item>
