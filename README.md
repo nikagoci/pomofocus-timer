@@ -1,38 +1,25 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# PomoFocus Timer - Boost Your Productivity with the Pomodoro Technique
 
-## Getting Started
+PomoFocus Timer is a sleek and intuitive productivity tool designed to help you supercharge your work and study sessions using the renowned Pomodoro Technique. Whether you're striving for increased focus, enhanced time management, or improved task completion, PomoFocus Timer has you covered.
 
-First, run the development server:
+## Key Features:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+- **Pomodoro Technique Integration:** Leverage the power of the Pomodoro Technique to enhance your productivity. Work in focused 25-minute intervals followed by short breaks to maintain peak concentration.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Customizable Timer:** Tailor your work sessions to your preferences. Adjust the timer duration for both work and break intervals according to your unique workflow.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- **Task Tracking:** Create a list of tasks for your work session and check them off as you go. This feature keeps you organized and motivated as you see your progress in real-time.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+- **Responsive Design:** PomoFocus Timer is optimized for various devices, ensuring a seamless experience whether you're working on your computer, tablet, or smartphone.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Technologies Used:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Next.js: The core technologies that power the PomoFocus Timer interface and functionality.
+- Tailwind CSS: Used for styling purposes.
 
-## Learn More
+## Links
 
-To learn more about Next.js, take a look at the following resources:
+- Live Site URL: [https://pomofocus-gamma.vercel.app/](https://pomofocus-gamma.vercel.app)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+*PomoFocus Timer is an open-source project developed by [Nika Goci](https://github.com/nikagoci). We believe in the power of focused work and continuous improvement.*
